@@ -1,4 +1,6 @@
 import esper
+# importar a função 'sqrt'
+from math import sqrt
 
 from battleship.component import Hazard, Health, Position
 from battleship.config import logger
@@ -33,6 +35,8 @@ class DamageProcessor(AbstractProcessor):
             #
             damage = get_damage(ship_position, hazard_position, hazard)
             ship_health.health -= damage
+            # Verificar a "health" atualizada do navio por frame"
+            print(f"Life {ship_health.health}")
 
             _logger.debug(f"Hazard[entity={hazard_entity}] inflicted damage={damage}")
 
@@ -56,13 +60,25 @@ def get_damage(
 
     # Compute distance from ship to hazard
     # <!!! INSERT YOUR CODE HERE !!!>
+    safe = 180 # Não encontrei o parâmetro definido no código original, então defini aqui
+    damage = 0
+    distance = get_distance(ship_position, hazard_position) 
 
     # Check if ship is safe from hazard
     # <!!! INSERT YOUR CODE HERE !!!>
+    if distance > safe:
+        #print("Vivo")
+        damage_1 = 0
+    else:
+        damage_1 = ((safe - distance)/safe)
+        #print("Bateu")
+        
 
     # Compute the actual damage
     # <!!! INSERT YOUR CODE HERE !!!>
+    damage = damage_1
 
     # Return the damage you computed
     # <!!! REPLACE THE LINE BELLOW WITH YOUR OWN !!!>
-    return 0
+    print(f"Dano: {damage}") # Verifica o dano recebido por frame
+    return damage
